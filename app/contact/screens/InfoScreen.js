@@ -90,7 +90,7 @@ export default function InfoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#ececec',
   },
   contentContainer: {
     paddingTop: 15,

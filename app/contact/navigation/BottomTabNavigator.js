@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, Platform, StyleSheet,TouchableOpacity, View, AsyncStorage } from 'react-native';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import InfoScreen from '../screens/InfoScreen';
@@ -15,7 +16,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator style={styles.navbar} initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="Info"
         component={InfoScreen}
@@ -49,10 +50,18 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Connections':
-      return 'Patient 31';
+      return 'Connections';
     case 'Info':
-      return 'Patient 31';
+      return 'Information';
     case 'Stats':
-      return 'Patient 31';
+      return 'Statistics';
   }
 }
+
+const styles = StyleSheet.create({
+  navbar: {
+    flex: 1,
+    backgroundColor: '#ececec',
+    padding: 20,
+  },
+});
