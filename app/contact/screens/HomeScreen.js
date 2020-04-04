@@ -9,12 +9,16 @@ import Reminders from '../components/Reminders';
 import FirstTimeModal from '../components/FirstTimeModal'
 
 let width = Dimensions.get('window').width; //full width
+let height = Dimensions.get('window').height; //full height
 
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: true
+      modalVisible: true,
+      activeInfo: false,
+      humanTitle: 'Human',
+      digitalTitle: 'Digital',
     };
     // this.setModalVisible = this.setModalVisible.bind(this)
   }
@@ -40,6 +44,27 @@ export default class HomeScreen extends Component {
       this.setState({ modalVisible: visible });
   }
 
+  handleHumanIconInfo = () => {
+    console.log(this.state.activeInfo)
+    if (this.state.activeInfo) {
+      console.log('setting to false')
+      this.setState({
+        humanTitle: `Human`,
+        activeInfo: !this.state.activeInfo
+      })
+    } else {
+      console.log('setting to true')
+      this.setState({
+        humanTitle: `Slow the spread!\nLOWER IS BETTER`,
+        activeInfo: !this.state.activeInfo
+      })
+    }
+  }
+
+  handleDigitalIconInfo = () => {
+    console.log('human icon pressed')
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -49,12 +74,23 @@ export default class HomeScreen extends Component {
           <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <View style={styles.getStartedContainer}>
               <InsetShadow size={0.04}>
+                <View style={styles.infoIconContainer}>
+                    <Icon
+                      name='info-circle'
+                      type='font-awesome'
+                      size={30}
+                      color={this.state.activeInfo ? '#fff' : '#D6D6D6'}
+                      onPress={() => this.handleHumanIconInfo()}
+                    />
+                </View>
                 <View style={styles.counterContainer}>
                   <View style={styles.counterView}>
-                    <Text style={styles.counterHeader}>
-                      Human
+                    <Text style={this.state.activeInfo ? styles.infoHeader : styles.counterHeader}>
+                      {this.state.humanTitle}
                     </Text>
-                    <Text style={styles.getStartedText}>{`Slow the spread!\nLOWER IS BETTER`}</Text>
+                    {/* TODO */}
+                    {/* Allow Info Icon to toggle content */}
+                    {/* <Text style={styles.getStartedText}>{`Slow the spread!\nLOWER IS BETTER`}</Text> */}
                   </View>
                   <ContactCounter name="in_person"/>
                 </View>
@@ -63,12 +99,22 @@ export default class HomeScreen extends Component {
             <Divider style={styles.divider} />
 
               <InsetShadow size={0.04}>
+                <View style={styles.infoIconContainer}>
+                    <Icon
+                      name='info-circle'
+                      type='font-awesome'
+                      size={30}
+                      color='#D6D6D6'
+                    />
+                </View>
                 <View style={styles.counterContainer}>
                   <View style={styles.counterView}>
                     <Text style={styles.counterHeader}>
-                      Digital
+                      {this.state.digitalTitle}
                     </Text>
-                    <Text style={styles.getStartedText}>{`Call a friend.\nText a family member.\nHIGHER IS BETTER`}</Text>
+                    {/* TODO */}
+                    {/* Allow Info Icon to toggle content */}
+                    <Text style={styles.getStartedText}></Text>
                   </View>
                   <ContactCounter name="digital"/>
                 </View>
@@ -106,14 +152,23 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   divider: {
-    marginTop: 10
+    marginTop: 20
   },
   counterHeader: {
     fontSize: 24,
     color: '#7A7A7A',
     fontFamily: 'Raleway-Medium',
     textAlign: 'center',
-    marginTop: 15
+    marginTop: -10,
+    marginBottom: 15
+  },
+  infoHeader: {
+    fontSize: 18,
+    color: '#7A7A7A',
+    fontFamily: 'Raleway-Medium',
+    textAlign: 'center',
+    marginTop: -10,
+    marginBottom: 0
   },
   counterText: {
     fontSize: 80,
@@ -133,5 +188,11 @@ const styles = StyleSheet.create({
   counterView: {
     paddingHorizontal: 10,
     textAlign: 'center'
+  },
+  infoIconContainer: {
+    width: width - 50,
+    marginTop: 10,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
   }
 });

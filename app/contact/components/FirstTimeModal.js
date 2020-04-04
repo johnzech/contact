@@ -96,7 +96,7 @@ export default function FirstTimeModal (props) {
             marginVertical: 10
         },
         firstTimeExitButtonText:{
-            color:'white',
+            color:'#25BE9A',
             fontSize:20,
             fontWeight:'bold',
             textAlign:'center'
